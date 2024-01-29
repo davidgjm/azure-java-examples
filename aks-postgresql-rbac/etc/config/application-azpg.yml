@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myapp
+#    driver-class-name: org.postgresql.Driver
+    azure:
+      passwordless-enabled: true
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG

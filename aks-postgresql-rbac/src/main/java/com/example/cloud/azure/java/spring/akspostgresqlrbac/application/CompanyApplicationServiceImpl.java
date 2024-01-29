@@ -26,11 +26,13 @@ public class CompanyApplicationServiceImpl implements CompanyApplicationService 
 
     @Override
     public Flux<CompanyDto> findAll(Sort sort) {
+        log.info("Attempting to get all companies with sort information {}", sort);
         return service.findAll(sort);
     }
 
     @Override
     public Mono<CompanyDto> findById(Long id) {
+        log.info("Attempting to find company with id {}", id);
         return service.findById(id).map(CompanyDto::from);
     }
 

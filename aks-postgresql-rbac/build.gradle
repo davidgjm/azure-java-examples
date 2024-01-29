@@ -20,8 +20,18 @@ configurations {
 repositories {
 	mavenCentral()
 }
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+//		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 
+//		mavenBom "com.azure.spring:azure-spring-boot-bom:${azureSpringBootVersion}"
+		mavenBom "com.azure.spring:spring-cloud-azure-dependencies:5.8.0"
+	}
+}
 dependencies {
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -29,10 +39,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-logging'
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
 //	runtimeOnly 'org.postgresql:postgresql'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.projectlombok:lombok'
+
+	//Azure SDK integration
+	implementation 'com.azure.spring:spring-cloud-azure-starter-jdbc-postgresql'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 }

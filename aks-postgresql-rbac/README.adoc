@@ -1,0 +1,47 @@
+= Connecting to Azure Postgresql with AKS Workload Identity
+
+
+== Dependencies on Azure SDK for Spring Cloud
+
+=== Dependency Management
+
+[source,groovy]
+----
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+		mavenBom "com.azure.spring:spring-cloud-azure-dependencies:5.8.0"
+	}
+}
+----
+
+=== Azure Postgresql related dependencies
+[source,groovy]
+----
+dependencies {
+	implementation 'com.azure.spring:spring-cloud-azure-starter-jdbc-postgresql'
+
+	runtimeOnly 'org.postgresql:postgresql'
+}
+----
+
+== Spring Boot Application Configuration
+
+[source,yaml]
+----
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myapp
+    driver-class-name: org.postgresql.Driver
+    azure:
+      passwordless-enabled: true
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    com.azure: DEBUG
+----

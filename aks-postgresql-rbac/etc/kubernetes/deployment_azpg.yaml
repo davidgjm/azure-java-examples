@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: aks-pg
+  name: aks-pg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aks-pg
+  template:
+    metadata:
+      labels:
+        app: aks-pg
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: aks-workload-identity-name
+      containers:
+        - name: aks-pg
+          image: myacr.azurecr.cn/myapp:0.0.1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: /etc/config/
+          volumeMounts:
+            - name: app-config-vol
+              mountPath: /etc/config
+      volumes:
+        - name: app-config-vol
+          configMap:
+            name: azpg-spring-config

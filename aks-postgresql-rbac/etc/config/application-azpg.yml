@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/myapp
+    url: jdbc:postgresql://mypg.postgres.database.chinacloudapi.cn:5432/mydb?sslmode=require
+    username: aks-workload-identity-name
     driver-class-name: org.postgresql.Driver
     azure:
       passwordless-enabled: true

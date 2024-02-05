@@ -1,0 +1,21 @@
+apiVersion: v1
+data:
+  application.yml: |-
+    spring:
+      datasource:
+        url: jdbc:postgresql://mypg.postgres.database.chinacloudapi.cn:5432/mydb?sslmode=require
+        username: aks-workload-identity-name
+        driver-class-name: org.postgresql.Driver
+        azure:
+          passwordless-enabled: true
+      jpa:
+        generate-ddl: true
+        hibernate:
+          ddl-auto: update
+    logging:
+      level:
+        org.hibernate.SQL: DEBUG
+        com.azure: DEBUG
+kind: ConfigMap
+metadata:
+  name: azpg-spring-config

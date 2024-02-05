@@ -9,7 +9,6 @@
 ----
 dependencyManagement {
 	imports {
-		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
 		mavenBom "com.azure.spring:spring-cloud-azure-dependencies:5.8.0"
 	}
 }
@@ -26,12 +25,18 @@ dependencies {
 ----
 
 == Spring Boot Application Configuration
+[source,yaml]
+----
+include::etc/config/application-azpg.yml[]
+----
+
 
 [source,yaml]
 ----
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/myapp
+    url: jdbc:postgresql://mypg.postgres.database.chinacloudapi.cn:5432/mydb?sslmode=require
+    username: aks-workload-identity-name
     driver-class-name: org.postgresql.Driver
     azure:
       passwordless-enabled: true
